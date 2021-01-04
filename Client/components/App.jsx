@@ -8,17 +8,44 @@ import Form1 from './Form.jsx';
 class App extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            view: 'chart'
+        }
+    }
 
+    changeView(newView) {
+        this.setState({
+            view: newView
+        })
     }
 
     render(){
-        return (
-            <div>
-                <Header />
-                <Chart1 />
-                <Footer />
-            </div>
-        )
+        if(this.state.view === 'chart'){
+            return (
+                <div>
+                    <Header update={this.changeView}/>
+                    <Chart1 />
+                    <Footer />
+                </div>
+            )
+        } else if (this.state.view === 'about') {
+            return (
+                <div>
+                    <Header update={this.changeView}/>
+                    <div>about</div>
+                    <Footer />
+                </div>
+            )
+
+        } else if (this.state.view === 'contact') {
+            return (
+                <div>
+                    <Header update={this.changeView}/>
+                    <div>contact</div>
+                    <Footer />
+                </div>
+            )
+        }
     }
 }
 

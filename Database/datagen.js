@@ -27,12 +27,16 @@ const generateHabitName = () => {
 
 let index = 1;
 const seedHabitData = () => {
-    let habitName = 'diet'
-    let userName = 'Chris'
-    let score = Math.floor(Math.random() * 11)
+    let diet = Math.floor(Math.random() * 11)
+    let exercise = Math.floor(Math.random() * 11)
+    let meditation = Math.floor(Math.random() * 11)
+    let reading = Math.floor(Math.random() * 11)
+    let reflection = Math.floor(Math.random() * 11)
+    let sleep = Math.floor(Math.random() * 11)
+    let userName = 'chris'
     let inputdate = `${2020}-${01}-${index}`
     index++
-    return `${habitName}|${userName}|${score}|${inputdate}\n`
+    return `${diet}|${exercise}|${meditation}|${reading}|${reflection}|${sleep}|${userName}|${inputdate}\n`
 }
 
 const startWriting = (writeStream, encoding, done) => {
@@ -66,7 +70,7 @@ const startWriting = (writeStream, encoding, done) => {
 
 // write our `header` line before we invoke the loop
 // eslint-disable-next-line quotes
-stream.write(`habitName|userName|score|inputdate\n`, 'utf-8');
+stream.write(`diet|exercise|meditation|reading|reflection|sleep|userName|inputdate\n`, 'utf-8');
 // invoke startWriting and pass callback
 startWriting(stream, 'utf-8', () => {
   stream.end();

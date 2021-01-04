@@ -6,30 +6,53 @@ class Form1 extends React.Component {
         super(props);
 
         this.state = {
-            habitName: '',
+            diet: 0,
+            exercise: 0,
+            meditation: 0,
+            reading: 0,
+            reflection: 0,
+            sleep: 0,
             userName: '',
-            score: 0,
-            inputDate: '',
-            weekday: ''
+            inputDate: ''
         }
 
-        this.handleHabitNameChange = this.handleHabitNameChange.bind(this);
+        this.handleDietChange = this.handleDietChange.bind(this);
+        this.handleExerciseChange = this.handleExerciseChange.bind(this);
+        this.handleMeditationChange = this.handleMeditationChange.bind(this);
+        this.handleReadingChange = this.handleReadingChange.bind(this);
+        this.handleReflectionChange = this.handleReflectionChange.bind(this);
+        this.handleSleepChange = this.handleSleepChange.bind(this);
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
-        this.handleScoreChange = this.handleScoreChange.bind(this);
         this.handleInputDateChange = this.handleInputDateChange.bind(this);
         this.submitToServer = this.submitToServer.bind(this);
      }
+     
+     handleDietChange(diet){
+        this.setState({diet: diet.target.value})
+     }
 
-     handleHabitNameChange(name){
-        this.setState({habitName: name.target.value})
+     handleExerciseChange(exercise){
+        this.setState({exercise: exercise.target.value})
+     }
+
+     handleMeditationChange(meditation){
+        this.setState({meditation: meditation.target.value})
+     }
+
+     handleReadingChange(reading){
+        this.setState({reading: reading.target.value})
+     }
+
+     handleReflectionChange(reflection){
+         this.setState({reflection: reflection.target.value})
+     }
+
+     handleSleepChange(sleep){
+         this.setState({sleep: sleep.target.value})
      }
 
      handleUserNameChange(name){
          this.setState({userName: name.target.value})
-     }
-
-     handleScoreChange(score){
-         this.setState({score: score.target.value})
      }
 
      handleInputDateChange(inputDate){
@@ -39,16 +62,18 @@ class Form1 extends React.Component {
 
      submitToServer(event){
          event.preventDefault();
-         axios.post('/exercise', {
-             habitName: this.state.habitName,
+         axios.post('/all', {
+             diet: this.state.diet,
+             exercise: this.state.exercise,
+             meditation: this.state.meditation,
+             reading: this.state.reading,
+             reflection: this.state.reflection,
+             sleep: this.state.sleep,
              userName: this.state.userName,
-             score: this.state.score,
              inputDate: this.state.inputDate
          })
          .then((response) => {
-            console.log(this.props)
-            this.props.update()
-            console.log('from submit to server', response)
+            this.props.updateAll();
          })
          .catch((error) => {
              console.log(error)
@@ -59,16 +84,32 @@ class Form1 extends React.Component {
          return(
             <form onSubmit={this.submitToServer} className='form'>
             <label>
-                Habit Name:
-                <input type="text" placeholder={'exercise'} value={this.state.value} onChange={this.handleHabitNameChange} />
+                Diet:
+                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleDietChange} />
+            </label>
+            <label>
+                Exercise:
+                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleExerciseChange} />
+            </label>
+            <label>
+                Meditation:
+                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleMeditationChange} />
+            </label>
+            <label>
+                Reading:
+                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleReadingChange} />
+            </label>
+            <label>
+                Reflection:
+                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleReflectionChange} />
+            </label>
+            <label>
+                Sleep:
+                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleSleepChange} />
             </label>
             <label>
                 User Name:
                 <input type="text" placeholder={'chris'}value={this.state.value} onChange={this.handleUserNameChange} />
-            </label>
-            <label>
-                Score:  
-                <input type="text" placeholder={'10'} value={this.state.value} onChange={this.handleScoreChange} />
             </label>
             <label>
                 Date:   

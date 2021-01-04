@@ -14,10 +14,12 @@ const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
 
 app.use(express.static(PUBLIC_DIR))
 
-app.post('/exercise', (req, res) => {
-    console.log(req.body)
+app.post('/all', (req, res) => {
+    console.log('body from All ===> ', req.body)
     // const info = [req.body.id, req.body.habitName]
-    const query1 = `insert into habitinfo (habitName, userName, score, inputDate) values ('${req.body.habitName}', '${req.body.userName}', ${req.body.score}, '${req.body.inputDate}')`
+    const query1 = `insert into habitinfo (diet, exercise, meditation, reading, reflection, sleep, userName, inputDate) values (${req.body.diet}, ${req.body.exercise}, ${req.body.meditation}, ${req.body.reading}, ${req.body.reflection}, ${req.body.sleep}, '${req.body.userName}', '${req.body.inputDate}')`
+    // const values = [`${req.body.diet}, ${req.body.exercise}, ${req.body.meditation}, ${req.body.reading}, ${req.body.reflection}, ${req.body.sleep}, '${req.body.userName}', ${req.body.inputDate}`];
+    // console.log('values ====> ', values)
     habitData.query(query1, (err, data) => {
         if(err) {
           res.status(505)
@@ -29,40 +31,17 @@ app.post('/exercise', (req, res) => {
     })
 })
 
-app.get('/exercise', (req, res) => {
-    const query = `Select * from habitinfo where habitname = $1`;
-    const values = ['exercise'];
-    habitData.query(query, values, (err, data) => {
+app.get('/all', (req, res) => {
+    const query = `Select * from habitinfo`;
+    habitData.query(query, (err, data) => {
       if (err) {
         console.log('Failed to retrieve data!', err);
         res.status(505);
       } else {
+          console.log('from server', data)
         for(let i =0; i < data.rows.length; i++){
             data.rows[i].inputdate = data.rows[i].inputdate.toString();
             data.rows[i].inputdate = data.rows[i].inputdate.slice(0, 15);
-            if(data.rows[i].habitname === 'exercise'){
-                data.rows[i].exercise = data.rows[i].score
-            } 
-        };
-        res.send(data);
-      }
-    });
-})
-
-app.get('/diet', (req, res) => {
-    const query = 'Select * from habitinfo where habitname = $1';
-    const values = ['diet']
-    habitData.query(query, values, (err, data) => {
-      if (err) {
-        console.log('Failed to retrieve data!', err);
-        res.status(505);
-      } else {
-        for(let i =0; i < data.rows.length; i++){
-            data.rows[i].inputdate = data.rows[i].inputdate.toString();
-            data.rows[i].inputdate = data.rows[i].inputdate.slice(0, 15);
-            if(data.rows[i].habitname === 'diet'){
-                data.rows[i].diet = data.rows[i].score
-            } 
         };
         res.send(data);
       }

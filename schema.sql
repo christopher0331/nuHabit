@@ -6,10 +6,14 @@ create database nuhabit;
 
 CREATE TABLE habitInfo (
   id serial PRIMARY KEY,
-  habitName text,
+  diet integer,
+  exercise integer,
+  meditation integer, 
+  reading integer,
+  reflection integer,
+  sleep integer,
   userName text,
-  score integer,
-  inputDate date
+  inputDate date unique
 );
 
 -- const habits = new Schema({
