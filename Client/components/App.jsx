@@ -3,24 +3,12 @@ import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Chart1 from './Chart.jsx';
 import axios from 'axios';
+import Form1 from './Form.jsx';
 
 class App extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            
-        }
-    }
-
-    componentDidMount(){
-        axios.get('/exercise')
-          .then((response) => {
-
-          })
-          .catch((error) => {
-
-          })
     }
 
     render(){

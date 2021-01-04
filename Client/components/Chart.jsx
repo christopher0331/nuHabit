@@ -1,53 +1,101 @@
+import axios from 'axios';
 import React from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import Form1 from './Form.jsx';
 
-const data = [
-  {
-    name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-  },
-  {
-    name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-  },
-  {
-    name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-  },
-];
+class Chart1 extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            showHabit: 'exercise',
+            exerciseData: [],
+            dietData: [],
+            starting: 22,
+            ending: 150
+        }
+        this.getExerciseData = this.getExerciseData.bind(this);
+        this.getDietData = this.getDietData.bind(this)
+    }
 
-const Chart1 = (props) => {
-    return (
-        <div className='chart1'>
-            <LineChart
-                width={800}
-                height={300}
-                data={data}
-                margin={{
-                top: 5, right: 30, left: 20, bottom: 5,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            </LineChart>
-        </div>
-  );
+    componentDidMount(){
+     this.getExerciseData();
+     this.getDietData();
+    }
+
+    getExerciseData(){
+        axios.get('/exercise')
+        .then((response) => {
+            console.log(response.data.rows)
+            this.setState({
+                exerciseData: response.data.rows
+            })
+        })
+    }
+
+    getDietData(){
+        axios.get('/diet')
+        .then((response) => {
+            this.setState({
+                dietData: response.data.rows
+            })
+        })
+    }
+
+
+    render() {
+        if(!this.state.exerciseData){
+            return(
+                <h1>Loading!</h1>
+            )
+        } else if(this.state.exerciseData && this.state.showHabit === 'exercise') {
+            return (
+                <div className='chart1'>
+                    <h3>{this.state.showHabit}</h3>
+                    {/* {console.log('from the top ==>', this.state.data)} */}
+                    <LineChart
+                        width={800}
+                        height={350}
+                        data={this.state.exerciseData.slice(this.state.starting, this.state.ending)}
+                        margin={{
+                        top: 5, right: 30, left: 20, bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey={'inputdate'} />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey={'exercise'} stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                    <Form1 update={this.getData}/>
+                </div>
+          );
+        } else if (this.state.dietData && this.state.showHabit === 'diet') {
+            return(
+                <div className='chart1'>
+                    <h3>{this.state.showHabit}</h3>
+                    <LineChart
+                        width={800}
+                        height={350}
+                        data={this.state.dietData.slice(this.state.starting, this.state.ending)}
+                        margin={{
+                        top: 5, right: 30, left: 20, bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey={'inputdate'} />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey={'diet'} stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                    <Form1 update={this.getData}/>
+                </div>
+            )
+        }
+    }
 }
 
 export default Chart1;
