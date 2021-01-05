@@ -33,8 +33,8 @@ const seedHabitData = () => {
     let reading = Math.floor(Math.random() * 11)
     let reflection = Math.floor(Math.random() * 11)
     let sleep = Math.floor(Math.random() * 11)
-    let userName = 'chris'
-    let inputdate = `${2020}-${01}-${index}`
+    let userName = 'chris0331'
+    let inputdate = `${2020}-${12}-${index}`
     index++
     return `${diet}|${exercise}|${meditation}|${reading}|${reflection}|${sleep}|${userName}|${inputdate}\n`
 }

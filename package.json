@@ -13,9 +13,9 @@
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "dns": "file:./src/mock/dns",
     "express": "^4.17.1",
     "faker": "^5.1.0",
-    "fs": "0.0.1-security",
     "mongoose": "^5.11.9",
     "nodemon": "^2.0.6",
     "parseurl": "^1.3.3",

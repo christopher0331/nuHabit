@@ -3,46 +3,42 @@ import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Chart1 from './Chart.jsx';
 import axios from 'axios';
-import Form1 from './Form.jsx';
+import Login from './Login.jsx';
 
 class App extends React.Component {
     constructor(props) {
         super(props)
+
         this.state = {
-            view: 'chart'
+            view: 'login',
+
         }
+        this.changeView = this.changeView.bind(this);
     }
 
-    changeView(newView) {
+    changeView(){
         this.setState({
-            view: newView
+            view: 'loggedIn'
         })
     }
 
     render(){
-        if(this.state.view === 'chart'){
-            return (
-                <div>
-                    <Header update={this.changeView}/>
-                    <Chart1 />
-                    <Footer />
+        if(this.state.view === 'login'){
+            return(
+                <div className='firstPage'>
+                    <Header />
+                    <Login changeView={this.changeView}/>
+                    {/* <Footer /> */}
                 </div>
             )
-        } else if (this.state.view === 'about') {
-            return (
+        } else if(this.state.view === 'loggedIn') {
+            return(
                 <div>
-                    <Header update={this.changeView}/>
-                    <div>about</div>
-                    <Footer />
-                </div>
-            )
+                    <Header />
+                    <h1 class='welcomeMessage'> Welcome Back Chris0331!</h1>
 
-        } else if (this.state.view === 'contact') {
-            return (
-                <div>
-                    <Header update={this.changeView}/>
-                    <div>contact</div>
-                    <Footer />
+                    <Chart1 />
+                    {/* <Footer /> */}
                 </div>
             )
         }

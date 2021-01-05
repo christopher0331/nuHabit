@@ -41,7 +41,7 @@ app.get('/all', (req, res) => {
           console.log('from server', data)
         for(let i =0; i < data.rows.length; i++){
             data.rows[i].inputdate = data.rows[i].inputdate.toString();
-            data.rows[i].inputdate = data.rows[i].inputdate.slice(0, 15);
+            data.rows[i].inputdate = data.rows[i].inputdate.slice(0, 11);
         };
         res.send(data);
       }

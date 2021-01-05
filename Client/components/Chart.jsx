@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 import Form1 from './Form.jsx';
 import Selector from './Selector.jsx';
+import DateSelector from './DateSelector.jsx'
 
 class Chart1 extends React.Component {
     constructor(props) {
@@ -12,21 +13,22 @@ class Chart1 extends React.Component {
         this.state = {
             showHabit: 'exercise',
             allData: [],
-            starting: 22,
-            ending: 200
+            currentDates: 'Last 7 Days',
+            starting: 85,
+            ending: 100
         }
         // this.getExerciseData = this.getExerciseData.bind(this);
         // this.getDietData = this.getDietData.bind(this);
         this.getAllData = this.getAllData.bind(this);
         this.updateData = this.updateData.bind(this);
+        this.updateDates = this.updateDates.bind(this);
     }
 
     componentDidMount(){
      this.getAllData();
     }
-
+   
     getAllData(){
-        console.log('made it here')
         axios.get('/all')
         .then((response) => {
             this.setState({
@@ -39,16 +41,45 @@ class Chart1 extends React.Component {
         this.setState({ showHabit: habit.target.value})
     }
 
+    updateDates(timeline){
+        if(timeline.target.value === 'Last 7 Days'){  
+            this.setState({
+                currentDates: timeline.target.value,
+                starting: this.state.allData.length - 8,
+                ending: this.state.allData.length
+            })
+        }
+        if(timeline.target.value === 'Last 30 Days') {
+            this.setState({
+                currentDates: timeline.target.value,
+                starting: this.state.allData.length - 30,
+                ending: this.state.allData.length
+            })
+        }
+        if(timeline.target.value === 'Last Quarter') {
+            this.setState({
+                currentDates: timeline.target.value,
+                starting: this.state.allData.length - 90,
+                ending: this.state.allData.length
+            })
+        }
+        
+    }
+
     render() {
         if(!this.state.allData){
             return(
                 <h1>Loading!</h1>
             )
         } else if(this.state.allData && this.state.showHabit === 'diet') {
+            {console.log('data length ===> ', this.state.allData.length)}
+
             return (
                 <div className='chart1'>
-                    {console.log(this.state)}
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
                     {/* {console.log('from the top ==>', this.state.data)} */}
                     <LineChart
                         width={800}
@@ -71,7 +102,10 @@ class Chart1 extends React.Component {
         } else if(this.state.allData && this.state.showHabit === 'exercise') {
             return (
                 <div className='chart1'>
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
                     {/* {console.log('from the top ==>', this.state.data)} */}
                     <LineChart
                         width={800}
@@ -94,7 +128,10 @@ class Chart1 extends React.Component {
         } else if(this.state.allData && this.state.showHabit === 'meditation') {
             return (
                 <div className='chart1'>
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
                     {/* {console.log('from the top ==>', this.state.data)} */}
                     <LineChart
                         width={800}
@@ -117,8 +154,10 @@ class Chart1 extends React.Component {
         } else if(this.state.allData && this.state.showHabit === 'reading') {
             return (
                 <div className='chart1'>
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
-                    {/* {console.log('from the top ==>', this.state.data)} */}
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
                     <LineChart
                         width={800}
                         height={350}
@@ -140,7 +179,10 @@ class Chart1 extends React.Component {
         } else if (this.state.allData && this.state.showHabit === 'reflection') {
             return(
                 <div className='chart1'>
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
                     <LineChart
                         width={800}
                         height={350}
@@ -162,7 +204,11 @@ class Chart1 extends React.Component {
         } else if (this.state.showHabit === 'sleep') {
             return(
                 <div className='chart1'>
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
+
                     <LineChart
                         width={800}
                         height={350}
@@ -184,7 +230,10 @@ class Chart1 extends React.Component {
         } else if (this.state.showHabit === 'all') {
             return(
                 <div className='chart1'>
-                    <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                    <div className='selectors'>
+                        <Selector currentView={this.state.showHabit} updateData={this.updateData}/>
+                        <DateSelector currentDate={this.state.currentDates} updateDates={this.updateDates}/>
+                    </div>
                     <LineChart
                         width={800}
                         height={350}
