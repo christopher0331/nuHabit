@@ -35,7 +35,7 @@ class App extends React.Component {
             return(
                 <div>
                     <Header />
-                    <h1 class='welcomeMessage'> Welcome Back Chris0331!</h1>
+                    <h1 className='welcomeMessage'> Welcome Back Chris0331!</h1>
 
                     <Chart1 />
                     {/* <Footer /> */}

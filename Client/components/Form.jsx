@@ -83,39 +83,39 @@ class Form1 extends React.Component {
      render() {
          return(
             <form onSubmit={this.submitToServer} className='form'>
-            <label class='formInput'>
+            <label className='formInput'>
                 Diet:
                 <input type="number" placeholder='10' min="0" max="10" step="1" value={this.state.value} onChange={this.handleDietChange} />
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 Exercise:
                 <input type="number" placeholder='10' min="0" max="10" step="1" value={this.state.value} onChange={this.handleExerciseChange} />
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 Meditation:
                 <input type="number" placeholder='10' min="0" max="10" step="1" value={this.state.value} onChange={this.handleMeditationChange} />                
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 Reading:
                 <input type="number" placeholder='10' min="0" max="10" step="1" value={this.state.value} onChange={this.handleReadingChange} />                
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 Reflection:
                 <input type="number" placeholder='10' min="0" max="10" step="1" value={this.state.value} onChange={this.handleReflectionChange} />                
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 Sleep:
                 <input type="number" placeholder='10' min="0" max="10" step="1" value={this.state.value} onChange={this.handleSleepChange} />                
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 User Name:
                 <input type="text" placeholder='JohnDoe0331' value={this.state.value} onChange={this.handleUserNameChange} />                
             </label>
-            <label class='formInput'>
+            <label className='formInput'>
                 Date:   
                 <input type="date" placeholder={'2021-02-03'} value={this.state.value} onChange={this.handleInputDateChange} />
             </label>
-            <input class='grow' type="submit" value="Submit" id='formSubmit'/>
+            <input className='grow' type="submit" value="Submit" id='formSubmit'/>
         </form>
          )
      }

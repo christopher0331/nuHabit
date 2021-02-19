@@ -14,7 +14,7 @@ class Chart1 extends React.Component {
             showHabit: 'exercise',
             allData: [],
             currentDates: 'Last 7 Days',
-            starting: 85,
+            starting: 0,
             ending: 100
         }
         // this.getExerciseData = this.getExerciseData.bind(this);
